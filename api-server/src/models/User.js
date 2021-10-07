@@ -1,14 +1,15 @@
-import mongoose, { Schema } from "mongoose";
-import uniqueValidator from "mongoose-unique-validator";
+//import mongoose, { Schema } from "../../node_modules/mongoose";
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
-const refreshTokens = new Schema({
+const refreshTokens = mongoose.Schema({
   token: {
     type: String,
     required: true
   }
 });
 
-const UserSchema = new Schema(
+const UserSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -34,7 +35,11 @@ const UserSchema = new Schema(
   }
 );
 
-mongoose.set("useCreateIndex", true);
-UserSchema.plugin(uniqueValidator);
+//mongoose.set("useCreateIndex", true);
+UserSchema.index({ name: 1 });
+UserSchema.index({ email: 1 });
 
-export default mongoose.model("User", UserSchema);
+UserSchema.plugin(uniqueValidator, { message: 'Error, se espera que {PATH} sea único.' });
+//UserSchema.plugin(mongoosePaginate);
+
+module.exports = User = mongoose.model("User", UserSchema);
