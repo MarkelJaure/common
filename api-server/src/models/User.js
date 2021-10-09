@@ -35,7 +35,7 @@ const UserSchema = mongoose.Schema(
   }
 );
 
-//mongoose.set("useCreateIndex", true);
+mongoose.set("useCreateIndex", true);
 UserSchema.index({ name: 1 });
 UserSchema.index({ email: 1 });
 
